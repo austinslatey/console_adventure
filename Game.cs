@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace TextAdventureGame
@@ -13,10 +14,25 @@ namespace TextAdventureGame
   }
 }
 
+
+public class Location
+{
+  public string Name { get; }
+  public string Description { get; }
+  public Dictionary<string, Location> Exits { get; }
+
+  public Location(string name, string description)
+  {
+    Name = name;
+    Description = description;
+    Exits = new Dictionary<string, Location>();
+  }
+}
+
 public class Game
 {
   // Declare currentRoom variable
-  private Room currentRoom;
+  private Location currentRoom;
   public void Start()
   {
     // Initialize game
@@ -38,7 +54,22 @@ public class Game
   private void Initialize()
   {
     // Set up game data, rooms, items, etc.
-    currentRoom = new Room("Starting Room", "This is the starting room.", new Exit[] {/* Define Exits */});
+    Location startingRoom = new Location("Starting Room", "This is the starting room.");
+    Location secondRoom = new Location("Second Room", "This is the south room.");
+    Location thirdRoom = new Location("Third Room", "This is the east room.");
+    Location fourthRoom = new Location("Third Room", "This is the west room.");
+
+    // Define exits for each room
+    startingRoom.Exits["north"] = secondRoom;
+    startingRoom.Exits["east"] = thirdRoom;
+    startingRoom.Exits["west"] = fourthRoom;
+    
+    secondRoom.Exits["south"] = startingRoom;
+    thirdRoom.Exits["west"] = startingRoom;
+    fourthRoom.Exits["east"] = startingRoom;
+
+    // Set the starting room
+    currentRoom = startingRoom;
   }
 
   private void PrintRoomDescription()
@@ -48,7 +79,7 @@ public class Game
     Console.WriteLine(currentRoom.Description);
 
     // Print exits
-    Console.WriteLine("Exits: " + string.Join(", ", currentRoom.Exits.Select(e => e.Direction)));
+    Console.WriteLine("Exits: " + string.Join(", ", currentRoom.Exits.Keys));
   }
 
   private string GetUserInput()
@@ -60,6 +91,29 @@ public class Game
   private void ProcessInput(string input)
   {
     // Handle user input (move, interact with objects, etc.)
+    if (input.StartsWith("go ") || input.StartsWith("move "))
+    {
+      string direction = input.Split(' ')[1];
+      Move(direction);
+    }
+    else
+    {
+      Console.WriteLine("Invalid command. Try again.");
+    }
+  }
+
+  private void Move(string direction)
+  {
+    // Check if the specified direction is a valid exit
+    if (currentRoom.Exits.ContainsKey(direction))
+    {
+      // Move to the next room
+      currentRoom = currentRoom.Exits[direction];
+    }
+    else
+    {
+      Console.WriteLine("You cannot go in that direction.");
+    }
   }
 
   public class Room
