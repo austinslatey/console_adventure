@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "FWeXKKQEVMoNfkbpkyNgiyg/Adh336/AlSxRnMHlVTtbPPLzH+Yg8eqpgLXUAerq4kbiTkGpHTBtCSh8LpcdSQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\austi\\classContent\\demos\\console_adventure\\console_adventure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\austi\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.22\\microsoft.netcore.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\austi\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.22\\microsoft.windowsdesktop.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\austi\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.22\\microsoft.aspnetcore.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\austi\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.22\\microsoft.netcore.app.host.win-x64.6.0.22.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,14 @@
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\console_adventure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\console_adventure.AssemblyInfoInputs.cache
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\console_adventure.AssemblyInfo.cs
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\console_adventure.csproj.CoreCompileInputs.cache
+C:\Users\austi\classContent\demos\console_adventure\bin\Debug\net6.0\console_adventure.exe
+C:\Users\austi\classContent\demos\console_adventure\bin\Debug\net6.0\console_adventure.deps.json
+C:\Users\austi\classContent\demos\console_adventure\bin\Debug\net6.0\console_adventure.runtimeconfig.json
+C:\Users\austi\classContent\demos\console_adventure\bin\Debug\net6.0\console_adventure.dll
+C:\Users\austi\classContent\demos\console_adventure\bin\Debug\net6.0\console_adventure.pdb
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\console_adventure.dll
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\refint\console_adventure.dll
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\console_adventure.pdb
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\console_adventure.genruntimeconfig.cache
+C:\Users\austi\classContent\demos\console_adventure\obj\Debug\net6.0\ref\console_adventure.dll
