@@ -54,24 +54,34 @@ public class Game
   private void Initialize()
   {
     // Set up game data, rooms, items, etc.
-    Location startingRoom = new Location("Starting Room", "This is the starting room.");
-    Location secondRoom = new Location("Second Room", "This is the south room.");
-    Location thirdRoom = new Location("Third Room", "This is the east room.");
-    Location fourthRoom = new Location("Third Room", "This is the west room.");
+    Location startingRoom = new Location("Starting Room", "Hello brave and curious explorer! \nType Go/Move `North, East, South, West` to find the hidden treasure.");
+    Location currentRoom = startingRoom;
 
-    // Define exits for each room
-    startingRoom.Exits["north"] = secondRoom;
-    startingRoom.Exits["east"] = thirdRoom;
-    startingRoom.Exits["west"] = fourthRoom;
-    
-    secondRoom.Exits["south"] = startingRoom;
-    thirdRoom.Exits["west"] = startingRoom;
-    fourthRoom.Exits["east"] = startingRoom;
+    string[] directions = { "north", "east", "south", "west" };
+
+    foreach (string direction in directions)
+    {
+      Location nextRoom = new Location($"Room {direction.Substring(0, 1).ToUpper()}{direction.Substring(1)}", $"This is the {direction} room.");
+      currentRoom.Exits[direction] = nextRoom;
+      nextRoom.Exits[GetOppositeDirection(direction)] = currentRoom;
+      currentRoom = nextRoom;
+    }
 
     // Set the starting room
-    currentRoom = startingRoom;
+    this.currentRoom = startingRoom;
   }
 
+  private string GetOppositeDirection(string direction)
+  {
+    switch (direction)
+    {
+      case "north": return "south";
+      case "east": return "west";
+      case "south": return "north";
+      case "west": return "east";
+      default: throw new ArgumentException("Invalid direction");
+    }
+  }
   private void PrintRoomDescription()
   {
     // Print room name and description

@@ -1,3 +1,13 @@
+## Usage
+1. Clone repository
+
+- I used the `.NET` software development framework to run app using the command
+
+2. `dotnet run`
+
+
+
+
 ## Setting: 
 A mysterious, ancient, and abandoned city filled with secrets and hidden treasures.
 
