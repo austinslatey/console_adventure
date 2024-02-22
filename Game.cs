@@ -38,10 +38,18 @@ public class Game
   // Declare currentRoom variable
   private Location currentRoom;
   private string playerName;
+  private int playerHealth;
+  private int guardianHealth;
 
   public Game(string playerName)
   {
     this.playerName = playerName;
+    
+    // Set initial player health
+    this.playerHealth = 100;
+    
+    // Set initial guardian health
+    this.guardianHealth = 150;
   }
   public void Start()
   {
@@ -150,7 +158,7 @@ public class Game
       {
         DuelGuardian();
         // Exit the Move method to prevent printing room description after duel
-        return; 
+        return;
       }
     }
     else
@@ -189,6 +197,10 @@ public class Game
   {
     // Implement the duel logic here
     Console.WriteLine("You have challenged the Guardian! Prepare for battle...");
+    
     // Add more code here to handle the duel mechanics
+    Console.WriteLine($"{playerName}'s health: {playerHealth}");
+    Console.WriteLine($"Gaurdian's health: {guardianHealth}");
+    
   }
 }
