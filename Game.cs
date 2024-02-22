@@ -64,7 +64,7 @@ public class Game
   private void Initialize()
   {
     // Set up game data, rooms, items, etc.
-    Location startingRoom = new Location("Starting Room", $"Hello {playerName}! brave and curious explorer! \nType Go/Move `North, East, South, West` to find the hidden treasure.");
+    Location startingRoom = new Location("Starting Room", $"Hello {playerName}! Brave and curious explorer! \n\nType: Go/Move `North, East, South, West` to find the hidden treasure.");
     Location currentRoom = startingRoom;
 
     string[] directions = { "north", "east", "south", "west" };
@@ -112,7 +112,7 @@ public class Game
   private void PrintRoomDescription()
   {
     // Print room name and description
-    Console.WriteLine("You are in the " + currentRoom.Name + ".");
+    Console.WriteLine("----------\nWelcome to the " + currentRoom.Name + ".\n");
     Console.WriteLine(currentRoom.Description);
 
     // Print exits
@@ -146,6 +146,12 @@ public class Game
     {
       // Move to the next room
       currentRoom = currentRoom.Exits[direction];
+      if (direction == "south")
+      {
+        DuelGuardian();
+        // Exit the Move method to prevent printing room description after duel
+        return; 
+      }
     }
     else
     {
@@ -177,5 +183,12 @@ public class Game
       Direction = direction;
       TargetRoom = targetRoom;
     }
+  }
+
+  private void DuelGuardian()
+  {
+    // Implement the duel logic here
+    Console.WriteLine("You have challenged the Guardian! Prepare for battle...");
+    // Add more code here to handle the duel mechanics
   }
 }
