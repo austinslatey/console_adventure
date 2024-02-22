@@ -112,7 +112,17 @@ public class Game
     switch (direction)
     {
       case "north":
-        return "You find Oracle the Wise One! Listen, for he may have clues";
+        return @"
+       /\
+      /__\
+     /____\
+    /      \
+   /  \__/  \
+  /   @  @   \
+ /   /\  /\   \
+/ __/  \/  \__ \
+
+You find Oracle the Wise One! Listen, for he may have clues";
       case "east":
         return "You step into a dimly lit corridor lined with ancient tapestries. The air is heavy with the scent of musty parchment and decay.";
       case "south":
@@ -201,6 +211,28 @@ public class Game
 
   private void DuelGuardian()
   {
+    Console.WriteLine(@"
+ ________________________________________
+/ Hello, I am the Gaurdian. Fear my might.   \
+\ This is my treasure!!                /
+ ----------------------------------------
+        \                    / \  //\
+         \    |\___/|      /   \//  \\
+              /0  0  \__  /    //  | \ \
+             /     /  \/_/    //   |  \  \
+             @_^_@'/   \/_   //    |   \   \
+             //_^_/     \/_ //     |    \    \
+          ( //) |        \///      |     \     \
+        ( / /) _|_ /   )  //       |      \     _\
+      ( // /) '/,_ _ _/  ( ; -.    |    _ _\.-~        .-~~~^-.
+    (( / / )) ,-{        _      `-.|.-~-.           .~         `.
+   (( // / ))  '/\      /                 ~-. _ .-~      .-~^-.  \
+   (( /// ))      `.   {            }                   /      \  \
+    (( / ))     .----~-.\        \-'                 .~         \  `. \^-.
+               ///.----..>        \             _ -~             `.  ^-`  ^-_
+                 ///-._ _ _ _ _ _ _}^ - - - - ~                     ~-- ,.-~
+                                                                    /.-~
+");
     // Implement the duel logic here
     Console.WriteLine("You have challenged the Guardian! Prepare for battle...");
 
