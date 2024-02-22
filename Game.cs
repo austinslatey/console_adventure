@@ -61,7 +61,7 @@ public class Game
 
     foreach (string direction in directions)
     {
-      Location nextRoom = new Location($"Room {direction.Substring(0, 1).ToUpper()}{direction.Substring(1)}", $"This is the {direction} room.");
+      Location nextRoom = new Location($"Room {direction.Substring(0, 1).ToUpper()}{direction.Substring(1)}", GetRoomDescription(direction));
       currentRoom.Exits[direction] = nextRoom;
       nextRoom.Exits[GetOppositeDirection(direction)] = currentRoom;
       currentRoom = nextRoom;
@@ -80,6 +80,23 @@ public class Game
       case "south": return "north";
       case "west": return "east";
       default: throw new ArgumentException("Invalid direction");
+    }
+  }
+
+  private string GetRoomDescription(string direction)
+  {
+    switch (direction)
+    {
+      case "north":
+        return "You find Oracle the Wise One! Listen, for he may have clues";
+      case "east":
+        return "You step into a dimly lit corridor lined with ancient tapestries. The air is heavy with the scent of musty parchment and decay.";
+      case "south":
+        return "Oh no The Guardian!!! A powerful and ancient creature that protects the city's most valuable treasure. Beat the monster hero.";
+      case "west":
+        return "You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.";
+      default:
+        throw new ArgumentException("Invalid direction");
     }
   }
   private void PrintRoomDescription()
