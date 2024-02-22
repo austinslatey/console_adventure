@@ -199,8 +199,7 @@ public class Game
     Console.WriteLine("You have challenged the Guardian! Prepare for battle...");
     
     // Add more code here to handle the duel mechanics
-    Console.WriteLine($"{playerName}'s health: {playerHealth}");
-    Console.WriteLine($"Gaurdian's health: {guardianHealth}");
+    Console.WriteLine($"-------- \n{playerName}'s health: {playerHealth}    |    Gaurdian's health: {guardianHealth}");
     
   }
 }
