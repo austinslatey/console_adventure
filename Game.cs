@@ -40,16 +40,22 @@ public class Game
   private string playerName;
   private int playerHealth;
   private int guardianHealth;
-
+  private int playerAttackPower;
+  private int guardianAttackPower;
   public Game(string playerName)
   {
     this.playerName = playerName;
-    
+
     // Set initial player health
     this.playerHealth = 100;
-    
+
     // Set initial guardian health
     this.guardianHealth = 150;
+
+    // Set initial player and guardian attack power
+    // Adjust values as needed
+    this.playerAttackPower = 20;
+    this.guardianAttackPower = 25;
   }
   public void Start()
   {
@@ -197,9 +203,86 @@ public class Game
   {
     // Implement the duel logic here
     Console.WriteLine("You have challenged the Guardian! Prepare for battle...");
-    
+
     // Add more code here to handle the duel mechanics
     Console.WriteLine($"-------- \n{playerName}'s health: {playerHealth}    |    Gaurdian's health: {guardianHealth}");
-    
+
+    // Loop until the guardian or player is defeated
+    while (guardianHealth > 0 && playerHealth > 0)
+    {
+      // Display options to the player
+      Console.WriteLine("Choose your action:");
+      Console.WriteLine("1. Attack");
+      Console.WriteLine("2. Defend");
+      Console.Write("Enter your choice: ");
+      string choice = Console.ReadLine();
+
+      // Process player's choice
+      switch (choice)
+      {
+        case "1":
+          // Player chooses to attack
+          AttackGuardian();
+          break;
+        case "2":
+          // Player chooses to defend
+          Defend();
+          break;
+        default:
+          Console.WriteLine("Invalid choice. Please enter 1 to attack or 2 to defend.");
+          break;
+      }
+
+      // Check if the guardian is defeated
+      if (guardianHealth <= 0)
+      {
+        Console.WriteLine("You have defeated the Guardian!");
+        // Additional logic for winning the game or advancing to the next stage
+        return;
+      }
+
+      // Guardian's turn (for simplicity, assume the guardian always attacks)
+      int guardianDamage = CalculateDamage(guardianAttackPower);
+      playerHealth -= guardianDamage;
+      Console.WriteLine($"The Guardian attacked you for {guardianDamage} damage!");
+      Console.WriteLine($"Your health: {playerHealth}");
+
+      // Check if the player is defeated
+      if (playerHealth <= 0)
+      {
+        Console.WriteLine("You have been defeated by the Guardian!");
+        // Additional logic for losing the game or handling defeat
+        return;
+      }
+
+    }
+  }
+
+  private void AttackGuardian()
+  {
+    // Calculate player's damage and deduct from guardian's health
+    int playerDamage = CalculateDamage(playerAttackPower);
+    guardianHealth -= playerDamage;
+    Console.WriteLine($"You attacked the Guardian for {playerDamage} damage!");
+    Console.WriteLine($"Guardian's health: {guardianHealth}");
+  }
+
+  private void Defend()
+  {
+    // For simplicity, you can reduce the damage taken by the player when defending
+    int damageTaken = CalculateDamage(guardianAttackPower) / 2; // Half the damage
+    playerHealth -= damageTaken;
+    Console.WriteLine($"You defended against the Guardian's attack, but took {damageTaken} damage!");
+    Console.WriteLine($"Your health: {playerHealth}");
+  }
+
+  private int CalculateDamage(int attackPower)
+  {
+    // Implement your damage calculation logic here
+    // For simplicity, let's assume a random damage within a certain range
+    Random random = new Random();
+    int minDamage = (int)(attackPower * 0.5); // 50% of attack power
+    int maxDamage = (int)(attackPower * 1.5); // 150% of attack power
+    return random.Next(minDamage, maxDamage + 1);
   }
 }
