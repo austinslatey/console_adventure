@@ -313,13 +313,35 @@ c(`       ')o
       playerHealth -= guardianDamage;
       Console.WriteLine($"The Guardian attacked you for {guardianDamage} damage!");
       Console.WriteLine($"Your health: {playerHealth}");
-
+      
       // Check if the player is defeated
       if (playerHealth <= 0)
       {
-        Console.WriteLine("You have been defeated by the Guardian!");
-        // Additional logic for losing the game or handling defeat
-        return;
+        // Check if the player has a potion and their health is below or equal to 1 HP
+        if (playerInventory.Contains("Potion") && playerHealth <= 1)
+        {
+          // Use the potion to restore health
+          UsePotion();
+          Console.WriteLine("You had to use your potion.");
+          // Ensure the player's health is not below 0
+          if (playerHealth < 0)
+          {
+            playerHealth = 0;
+          }
+          // Check if the player is still defeated after using the potion
+          if (playerHealth <= 0)
+          {
+            Console.WriteLine("You have been defeated by the Guardian!");
+            // Additional logic for losing the game or handling defeat
+            return;
+          }
+        }
+        else
+        {
+          Console.WriteLine("You have been defeated by the Guardian!");
+          // Additional logic for losing the game or handling defeat
+          return;
+        }
       }
 
     }
