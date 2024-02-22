@@ -112,17 +112,7 @@ public class Game
     switch (direction)
     {
       case "north":
-        return @"
-       /\
-      /__\
-     /____\
-    /      \
-   /  \__/  \
-  /   @  @   \
- /   /\  /\   \
-/ __/  \/  \__ \
-
-You find Oracle the Wise One! Listen, for he may have clues";
+        return "The air smells of burnt wood and sulfur...";
       case "east":
         return "You step into a dimly lit corridor lined with ancient tapestries. The air is heavy with the scent of musty parchment and decay.";
       case "south":
@@ -156,6 +146,37 @@ You find Oracle the Wise One! Listen, for he may have clues";
     {
       string direction = input.Split(' ')[1];
       Move(direction);
+
+      // Check if the player has moved to the room containing the Oracle
+      if (currentRoom.Name == "Room North")
+      {
+        Console.WriteLine(@"
+       /\
+      /__\
+     /____\
+    /      \
+   /  \__/  \
+  /   @  @   \
+ /   /\  /\   \
+/ __/  \/  \__ \");
+        Console.WriteLine("You find Oracle the Wise One! Listen, for he may have clues");
+        Console.WriteLine("Would you like to listen to Oracle? (yes/no)");
+        string choice = Console.ReadLine().ToLower();
+
+        // Process the player's choice to listen to Oracle
+        if (choice == "yes")
+        {
+          Console.WriteLine("---------\nOracle: The roars out east.. oh so mighty I do say. Treasure beyond I forsee.");
+        }
+        else if (choice == "no")
+        {
+          Console.WriteLine("The wise one gazes into the distance...");
+        }
+        else
+        {
+          Console.WriteLine("Invalid choice. Try again.");
+        }
+      }
     }
     else
     {
