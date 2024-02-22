@@ -8,7 +8,11 @@ namespace TextAdventureGame
   {
     static void Main(string[] args)
     {
-      Game game = new Game();
+      Console.WriteLine("Welcome to the Console Adventure!");
+      Console.Write("Please enter your name:  ");
+      string playerName = Console.ReadLine();
+
+      Game game = new Game(playerName);
       game.Start();
     }
   }
@@ -33,6 +37,12 @@ public class Game
 {
   // Declare currentRoom variable
   private Location currentRoom;
+  private string playerName;
+
+  public Game(string playerName)
+  {
+    this.playerName = playerName;
+  }
   public void Start()
   {
     // Initialize game
@@ -54,7 +64,7 @@ public class Game
   private void Initialize()
   {
     // Set up game data, rooms, items, etc.
-    Location startingRoom = new Location("Starting Room", "Hello brave and curious explorer! \nType Go/Move `North, East, South, West` to find the hidden treasure.");
+    Location startingRoom = new Location("Starting Room", $"Hello {playerName}! brave and curious explorer! \nType Go/Move `North, East, South, West` to find the hidden treasure.");
     Location currentRoom = startingRoom;
 
     string[] directions = { "north", "east", "south", "west" };
