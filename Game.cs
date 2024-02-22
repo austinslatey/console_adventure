@@ -42,6 +42,7 @@ public class Game
   private int guardianHealth;
   private int playerAttackPower;
   private int guardianAttackPower;
+  private List<string> playerInventory;
   public Game(string playerName)
   {
     this.playerName = playerName;
@@ -56,6 +57,9 @@ public class Game
     // Adjust values as needed
     this.playerAttackPower = 20;
     this.guardianAttackPower = 25;
+
+    // Initialize player inventory
+    playerInventory = new List<string>();
   }
   public void Start()
   {
@@ -81,48 +85,42 @@ public class Game
     Location startingRoom = new Location("Starting Room", $"Hello {playerName}! Brave and curious explorer! \n\nType: Go/Move `North, East, South, West` to find the hidden treasure.");
     Location currentRoom = startingRoom;
 
-    string[] directions = { "north", "east", "south", "west" };
+    // Create rooms for the different directions
+    Location roomNorth = new Location("Room North", "The air smells of burnt wood and sulfur...");
+    Location roomEast = new Location("Room East", @"
+  You find a potion! This may be useful later
+        .
+    .
+      O  o
+     .
 
-    foreach (string direction in directions)
-    {
-      Location nextRoom = new Location($"Room {direction.Substring(0, 1).ToUpper()}{direction.Substring(1)}", GetRoomDescription(direction));
-      currentRoom.Exits[direction] = nextRoom;
-      nextRoom.Exits[GetOppositeDirection(direction)] = currentRoom;
-      currentRoom = nextRoom;
-    }
+  .  O
+       .
+     o
+    o   .
+  _________
+c(`       ')o
+  \.     ,/
+ _//^---^\\_ 
+");
+    Location gaurdianRoom = new Location("Room South", "Oh no The Guardian!!! A powerful and ancient creature that protects the city's most valuable treasure. Beat the monster hero.");
+    Location roomWestMain = new Location("Room West Main", "You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.");
+
+    // Connect rooms in all directions from the starting room
+    startingRoom.Exits["north"] = roomNorth;
+    startingRoom.Exits["east"] = roomEast;
+
+    // Connect back to the starting room from all other rooms
+    roomNorth.Exits["south"] = startingRoom;
+    roomNorth.Exits["east"] = gaurdianRoom;
+
+    roomEast.Exits["west"] = startingRoom;
+    gaurdianRoom.Exits["north"] = startingRoom;
 
     // Set the starting room
     this.currentRoom = startingRoom;
   }
 
-  private string GetOppositeDirection(string direction)
-  {
-    switch (direction)
-    {
-      case "north": return "south";
-      case "east": return "west";
-      case "south": return "north";
-      case "west": return "east";
-      default: throw new ArgumentException("Invalid direction");
-    }
-  }
-
-  private string GetRoomDescription(string direction)
-  {
-    switch (direction)
-    {
-      case "north":
-        return "The air smells of burnt wood and sulfur...";
-      case "east":
-        return "You step into a dimly lit corridor lined with ancient tapestries. The air is heavy with the scent of musty parchment and decay.";
-      case "south":
-        return "Oh no The Guardian!!! A powerful and ancient creature that protects the city's most valuable treasure. Beat the monster hero.";
-      case "west":
-        return "You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.";
-      default:
-        throw new ArgumentException("Invalid direction");
-    }
-  }
   private void PrintRoomDescription()
   {
     // Print room name and description
@@ -190,8 +188,15 @@ public class Game
     if (currentRoom.Exits.ContainsKey(direction))
     {
       // Move to the next room
-      currentRoom = currentRoom.Exits[direction];
-      if (direction == "south")
+      Location nextRoom = currentRoom.Exits[direction];
+      if (direction == "east" && nextRoom.Name == "Room East")
+      {
+        // Add the potion name or any identifier to the player's inventory
+        playerInventory.Add("Potion");
+      }
+
+      currentRoom = nextRoom;
+      if (direction == "east" && currentRoom.Name == "Room South")
       {
         DuelGuardian();
         // Exit the Move method to prevent printing room description after duel
@@ -267,6 +272,11 @@ public class Game
       Console.WriteLine("Choose your action:");
       Console.WriteLine("1. Attack");
       Console.WriteLine("2. Defend");
+      // Check if the player has a potion
+      if (playerInventory.Contains("Potion"))
+      {
+        Console.WriteLine("3. Use Potion");
+      }
       Console.Write("Enter your choice: ");
       string choice = Console.ReadLine();
 
@@ -280,6 +290,10 @@ public class Game
         case "2":
           // Player chooses to defend
           Defend();
+          break;
+        case "3":
+          // Player chooses to use potion
+          UsePotion();
           break;
         default:
           Console.WriteLine("Invalid choice. Please enter 1 to attack or 2 to defend.");
@@ -337,5 +351,14 @@ public class Game
     int minDamage = (int)(attackPower * 0.5); // 50% of attack power
     int maxDamage = (int)(attackPower * 1.5); // 150% of attack power
     return random.Next(minDamage, maxDamage + 1);
+  }
+
+  private void UsePotion()
+  {
+    // Increase player's health and remove the potion from inventory
+    Console.WriteLine("You used a potion to restore health!");
+    playerHealth += 50; // Increase health by a certain amount, adjust as needed
+    playerInventory.Remove("Potion");
+    Console.WriteLine($"Your health: {playerHealth}");
   }
 }
