@@ -37,6 +37,8 @@ public class Game
 {
   // Declare currentRoom variable
   private Location currentRoom;
+  private Location startingRoom;
+  private Location treasureRoom;
   private string playerName;
   private int playerHealth;
   private int guardianHealth;
@@ -82,8 +84,8 @@ public class Game
   private void Initialize()
   {
     // Set up game data, rooms, items, etc.
-    Location startingRoom = new Location("Starting Room", $"Hello {playerName}! Brave and curious explorer! \n\nType: Go/Move `North, East, South, West` to find the hidden treasure.");
-    Location currentRoom = startingRoom;
+    startingRoom = new Location("Starting Room", $"Hello {playerName}! Brave and curious explorer! \n\nType: Go/Move `North, East, South, West` to find the hidden treasure.");
+    currentRoom = startingRoom;
 
     // Create rooms for the different directions
     Location roomNorth = new Location("Room North", "The air smells of burnt wood and sulfur...");
@@ -104,7 +106,8 @@ c(`       ')o
  _//^---^\\_ 
 ");
     Location gaurdianRoom = new Location("Room South", "Oh no The Guardian!!! A powerful and ancient creature that protects the city's most valuable treasure. Beat the monster hero.");
-    Location roomWestMain = new Location("Room West Main", "You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.");
+    // Initialize treasureRoom
+    this.treasureRoom = new Location("Treasure Room", "You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.");
 
     // Connect rooms in all directions from the starting room
     startingRoom.Exits["north"] = roomNorth;
@@ -117,8 +120,10 @@ c(`       ')o
     roomEast.Exits["west"] = startingRoom;
     gaurdianRoom.Exits["north"] = startingRoom;
 
+    treasureRoom.Exits["south"] = startingRoom;
+
     // Set the starting room
-    this.currentRoom = startingRoom;
+    currentRoom = startingRoom;
   }
 
   private void PrintRoomDescription()
@@ -305,6 +310,9 @@ c(`       ')o
       {
         Console.WriteLine("You have defeated the Guardian!");
         // Additional logic for winning the game or advancing to the next stage
+        currentRoom = treasureRoom;
+        // Print the treasure room description
+        PrintRoomDescription();
         return;
       }
 
@@ -313,7 +321,7 @@ c(`       ')o
       playerHealth -= guardianDamage;
       Console.WriteLine($"The Guardian attacked you for {guardianDamage} damage!");
       Console.WriteLine($"Your health: {playerHealth}");
-      
+
       // Check if the player is defeated
       if (playerHealth <= 0)
       {
@@ -332,14 +340,26 @@ c(`       ')o
           if (playerHealth <= 0)
           {
             Console.WriteLine("You have been defeated by the Guardian!");
-            // Additional logic for losing the game or handling defeat
+            // Reset health
+            playerHealth = 100;
+            guardianHealth = 150;
+            // Move the player back to the starting room
+            currentRoom = startingRoom;
+            // Print the starting room description
+            PrintRoomDescription();
             return;
           }
         }
         else
         {
           Console.WriteLine("You have been defeated by the Guardian!");
-          // Additional logic for losing the game or handling defeat
+          // Reset health
+          playerHealth = 100;
+          guardianHealth = 150;
+          // Move the player back to the starting room
+          currentRoom = startingRoom;
+          // Print the starting room description
+          PrintRoomDescription();
           return;
         }
       }
@@ -367,11 +387,13 @@ c(`       ')o
 
   private int CalculateDamage(int attackPower)
   {
-    // Implement your damage calculation logic here
+    // Damage calculation logic here
     // For simplicity, let's assume a random damage within a certain range
     Random random = new Random();
-    int minDamage = (int)(attackPower * 0.5); // 50% of attack power
-    int maxDamage = (int)(attackPower * 1.5); // 150% of attack power
+    // 50% of attack power
+    int minDamage = (int)(attackPower * 0.5);
+    // 150% of attack power
+    int maxDamage = (int)(attackPower * 1.5);
     return random.Next(minDamage, maxDamage + 1);
   }
 
@@ -379,7 +401,8 @@ c(`       ')o
   {
     // Increase player's health and remove the potion from inventory
     Console.WriteLine("You used a potion to restore health!");
-    playerHealth += 50; // Increase health by a certain amount, adjust as needed
+    // Increase health by a certain amount, adjust as needed
+    playerHealth += 50;
     playerInventory.Remove("Potion");
     Console.WriteLine($"Your health: {playerHealth}");
   }
