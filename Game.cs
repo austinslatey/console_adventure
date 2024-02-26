@@ -93,7 +93,6 @@ public class Game
     // Create rooms for the different directions
     Location roomNorth = new Location("Room North", "The air smells of burnt wood and sulfur...");
     Location roomEast = new Location("Room East", @"
-  You find a potion! This may be useful later
         .
     .
       O  o
@@ -106,7 +105,8 @@ public class Game
   _________
 c(`       ')o
   \.     ,/
- _//^---^\\_ 
+ _//^---^\\_
+You find a potion! This may be useful later 
 ");
     Location gaurdianRoom = new Location("Room South", "Oh no The Guardian!!! A powerful and ancient creature that protects the city's most valuable treasure. Beat the monster hero.");
     // Initialize treasureRoom
@@ -119,7 +119,22 @@ c(`       ')o
            '
 You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.");
 
-    Location armorRoom = new Location("Armor Room", "You find some old armor that seems to be abandoned. You gear up for the adventure still awaits!");
+    Location armorRoom = new Location("Armor Room", @"
+               =%@=
+          ::=##=--=##+-:
+     -%#**+=-=*%@@%*=-=+**#%-
+     =%:*%%@@@@@@@@@@@@%%*-#+
+     =%-#@@@@@@@@@@@@@@@@%-#=
+     :%-*@@@@@@@@@@@@@@@@#-%-
+      #++@@@@@@@@@@@@@@@@*=#
+      -#=#@@@@@@@@@@@@@@#=#=
+      **=%@@@@@@@@@@@@%=+*:
+       :*+=@@@@@@@@@@@@==#:
+       :**:#@@@@@@@@#:**:
+         =%+=#@@@@#==%=
+           =#+-++-+#+
+You find some old armor that seems to be abandoned. You gear up for the adventure 
+still awaits!");
     // Connect rooms in all directions from the starting room
     startingRoom.Exits["north"] = roomNorth;
     startingRoom.Exits["east"] = roomEast;
@@ -228,7 +243,6 @@ You enter a chamber filled with strange artifacts and mysterious symbols carved 
         // Increase player's health by 50 points
         playerHealth += 50;
         armorAcquired = true;
-        Console.WriteLine("You found some armor and equipped it. Your health increased by 50 points!");
       }
 
 
