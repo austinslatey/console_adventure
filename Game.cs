@@ -392,8 +392,6 @@ still awaits!");
             guardianHealth = 150;
             // Move the player back to the starting room
             currentRoom = startingRoom;
-            // Print the starting room description
-            PrintRoomDescription();
             return;
           }
         }
@@ -405,8 +403,6 @@ still awaits!");
           guardianHealth = 150;
           // Move the player back to the starting room
           currentRoom = startingRoom;
-          // Print the starting room description
-          PrintRoomDescription();
           return;
         }
       }

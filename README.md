@@ -5,6 +5,8 @@
 
 2. `dotnet run`
 
+## Demo
+![Demo-Gif](./assets/demo.gif)
 
 
 
