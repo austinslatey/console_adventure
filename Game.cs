@@ -114,7 +114,7 @@ c(`       ')o
        `\\-|-//'
          `\|/`
            '
-    You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.");
+You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.");
 
     Location armorRoom = new Location("Armor Room", "You find some old armor that seems to be abandoned. You gear up for the adventure still awaits!");
     // Connect rooms in all directions from the starting room
@@ -332,8 +332,6 @@ c(`       ')o
         Console.WriteLine("You have defeated the Guardian!");
         // Additional logic for winning the game or advancing to the next stage
         currentRoom = treasureRoom;
-        // Print the treasure room description
-        PrintRoomDescription();
         return;
       }
 
