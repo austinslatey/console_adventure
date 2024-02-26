@@ -107,11 +107,20 @@ c(`       ')o
 ");
     Location gaurdianRoom = new Location("Room South", "Oh no The Guardian!!! A powerful and ancient creature that protects the city's most valuable treasure. Beat the monster hero.");
     // Initialize treasureRoom
-    this.treasureRoom = new Location("Treasure Room", "You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.");
+    this.treasureRoom = new Location("Treasure Room", @"
+        _______          
+      .'_/_|_\_'.      
+      \'\ -|- /'/
+       `\\-|-//'
+         `\|/`
+           '
+    You enter a chamber filled with strange artifacts and mysterious symbols carved into the walls. The air crackles with an otherworldly energy, sending shivers down your spine.");
 
+    Location armorRoom = new Location("Armor Room", "You find some old armor that seems to be abandoned. You gear up for the adventure still awaits!");
     // Connect rooms in all directions from the starting room
     startingRoom.Exits["north"] = roomNorth;
     startingRoom.Exits["east"] = roomEast;
+    startingRoom.Exits["south"] = armorRoom;
 
     // Connect back to the starting room from all other rooms
     roomNorth.Exits["south"] = startingRoom;
@@ -121,6 +130,7 @@ c(`       ')o
     gaurdianRoom.Exits["north"] = startingRoom;
 
     treasureRoom.Exits["south"] = startingRoom;
+    armorRoom.Exits["north"] = startingRoom;
 
     // Set the starting room
     currentRoom = startingRoom;
@@ -199,8 +209,19 @@ c(`       ')o
         // Add the potion name or any identifier to the player's inventory
         playerInventory.Add("Potion");
       }
+      else if (direction == "south" && nextRoom.Name == "Armor Room")
+      {
+        // Add armor to player's inventory
+        playerInventory.Add("Armor");
+        // Increase player's health by 50 points
+        playerHealth += 50;
+        Console.WriteLine("You found some armor and equipped it. Your health increased by 50 points!");
+      }
 
+      // Move to the next room
       currentRoom = nextRoom;
+
+      // Handle special events/interactions when entering certain rooms
       if (direction == "east" && currentRoom.Name == "Room South")
       {
         DuelGuardian();
