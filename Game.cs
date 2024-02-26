@@ -45,6 +45,9 @@ public class Game
   private int playerAttackPower;
   private int guardianAttackPower;
   private List<string> playerInventory;
+  private bool potionAcquired = false;
+  private bool armorAcquired = false;
+
   public Game(string playerName)
   {
     this.playerName = playerName;
@@ -204,10 +207,19 @@ You enter a chamber filled with strange artifacts and mysterious symbols carved 
     {
       // Move to the next room
       Location nextRoom = currentRoom.Exits[direction];
+
+      // Check if the next room is an item room and if the item has been acquired
+      if ((nextRoom.Name == "Room East" && potionAcquired) ||
+          (nextRoom.Name == "Armor Room" && armorAcquired))
+      {
+        Console.WriteLine("You have already acquired the item in this room.");
+        return;
+      }
       if (direction == "east" && nextRoom.Name == "Room East")
       {
         // Add the potion name or any identifier to the player's inventory
         playerInventory.Add("Potion");
+        potionAcquired = true;
       }
       else if (direction == "south" && nextRoom.Name == "Armor Room")
       {
@@ -215,8 +227,10 @@ You enter a chamber filled with strange artifacts and mysterious symbols carved 
         playerInventory.Add("Armor");
         // Increase player's health by 50 points
         playerHealth += 50;
+        armorAcquired = true;
         Console.WriteLine("You found some armor and equipped it. Your health increased by 50 points!");
       }
+
 
       // Move to the next room
       currentRoom = nextRoom;
